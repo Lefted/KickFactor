@@ -33,7 +33,6 @@ public class Display {
 		frame.setResizable(false);
 		frame.setLocationRelativeTo(null);
 		frame.setIconImage(ImageLoader.loadImage("/textures/DisplayIcon.png"));
-		// TODO image
 
 		canvas = new Canvas();
 		canvas.setPreferredSize(new Dimension(width, height));

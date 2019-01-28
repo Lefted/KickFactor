@@ -5,6 +5,7 @@ import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 
 import dev.lefted.display.Display;
+import dev.lefted.graphics.Assets;
 import dev.lefted.graphics.ImageLoader;
 import dev.lefted.graphics.SpriteSheet;
 
@@ -21,8 +22,7 @@ public class Game implements Runnable {
 	private BufferStrategy buffer;
 	private Graphics gfx;
 
-	private BufferedImage test;
-	private SpriteSheet sheet;
+	int posX = 0;
 	
 	// CONSTRUCTOR
 	public Game(String title, int width, int height) {
@@ -34,13 +34,12 @@ public class Game implements Runnable {
 	// INITialising
 	private void init() {
 		display = new Display(title, width, height);
-		test = ImageLoader.loadImage("/textures/SpriteSheetTemplate.png");
-		sheet = new SpriteSheet(test);
+		Assets.init();
 	}
 
 	// TICK
 	private void tick() {
-
+		posX ++;
 	}
 
 	// RENDER using bufferstrategy, graphics and canvas
@@ -50,9 +49,11 @@ public class Game implements Runnable {
 			display.getCanvas().createBufferStrategy(2);
 			return;
 		}
+		// clearing the screen before drawing
 		gfx = buffer.getDrawGraphics();
-
-		gfx.drawImage(sheet.crop(0, 0, 256, 256), 20, 20, null);
+		gfx.clearRect(0, 0, width, height);
+		
+		gfx.drawImage(Assets.player, posX, 0, null);
 
 		// Draw Buffer down and clear graphics 'cache'
 		buffer.show();
