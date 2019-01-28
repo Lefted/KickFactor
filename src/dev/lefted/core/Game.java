@@ -22,8 +22,9 @@ public class Game implements Runnable {
 	private BufferStrategy buffer;
 	private Graphics gfx;
 
+	private static final int FPS_RATE = 60;
 	int posX = 0;
-	
+
 	// CONSTRUCTOR
 	public Game(String title, int width, int height) {
 		this.title = title;
@@ -39,7 +40,7 @@ public class Game implements Runnable {
 
 	// TICK
 	private void tick() {
-		posX ++;
+		posX++;
 	}
 
 	// RENDER using bufferstrategy, graphics and canvas
@@ -52,7 +53,7 @@ public class Game implements Runnable {
 		// clearing the screen before drawing
 		gfx = buffer.getDrawGraphics();
 		gfx.clearRect(0, 0, width, height);
-		
+
 		gfx.drawImage(Assets.player, posX, 0, null);
 
 		// Draw Buffer down and clear graphics 'cache'
@@ -64,9 +65,23 @@ public class Game implements Runnable {
 	public void run() {
 		init();
 
+		// some code to make everything run the same speed ignoring the fps
+		int fps = FPS_RATE;
+		double timePerTick = 1000000000 / fps;
+		double delta = 0;
+		long now;
+		long lastTime = System.nanoTime();
+
 		while (running) {
-			tick();
-			render();
+			now = System.nanoTime();
+			delta += (now - lastTime) / timePerTick;
+			lastTime = now;
+
+			if (delta >= 1) {
+				tick();
+				render();
+				delta--;
+			}
 		}
 		stop();
 	}
