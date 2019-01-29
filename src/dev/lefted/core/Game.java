@@ -8,6 +8,9 @@ import dev.lefted.display.Display;
 import dev.lefted.graphics.Assets;
 import dev.lefted.graphics.ImageLoader;
 import dev.lefted.graphics.SpriteSheet;
+import dev.lefted.states.GameState;
+import dev.lefted.states.State;
+import dev.lefted.states.StateManager;
 
 public class Game implements Runnable {
 
@@ -23,7 +26,9 @@ public class Game implements Runnable {
 	private Graphics gfx;
 
 	private static final int FPS_RATE = 60;
-	int posX = 0;
+	
+	// STATE
+	private State gameState;
 
 	// CONSTRUCTOR
 	public Game(String title, int width, int height) {
@@ -36,11 +41,16 @@ public class Game implements Runnable {
 	private void init() {
 		display = new Display(title, width, height);
 		Assets.init();
+		// set current state to gamestate
+		gameState = new GameState();
+		StateManager.setState(gameState);
 	}
 
 	// TICK
 	private void tick() {
-		posX++;
+		if (StateManager.getState() != null) {
+			StateManager.getState().tick();
+		}
 	}
 
 	// RENDER using bufferstrategy, graphics and canvas
@@ -54,7 +64,9 @@ public class Game implements Runnable {
 		gfx = buffer.getDrawGraphics();
 		gfx.clearRect(0, 0, width, height);
 
-		gfx.drawImage(Assets.player, posX, 0, null);
+		if (StateManager.getState() != null) {
+			StateManager.getState().render(gfx);
+		}
 
 		// Draw Buffer down and clear graphics 'cache'
 		buffer.show();
