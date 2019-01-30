@@ -2,12 +2,9 @@ package dev.lefted.core;
 
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
-import java.awt.image.BufferedImage;
 
 import dev.lefted.display.Display;
 import dev.lefted.graphics.Assets;
-import dev.lefted.graphics.ImageLoader;
-import dev.lefted.graphics.SpriteSheet;
 import dev.lefted.states.GameState;
 import dev.lefted.states.State;
 import dev.lefted.states.StateManager;
@@ -28,7 +25,9 @@ public class Game implements Runnable {
 	private static final int FPS_RATE = 60;
 	
 	// STATE
+	@SuppressWarnings("unused")
 	private State gameState;
+	private State menuState;
 
 	// CONSTRUCTOR
 	public Game(String title, int width, int height) {
@@ -39,11 +38,13 @@ public class Game implements Runnable {
 
 	// INITialising
 	private void init() {
+		
 		display = new Display(title, width, height);
 		Assets.init();
 		// set current state to gamestate
 		gameState = new GameState();
-		StateManager.setState(gameState);
+		menuState = new MenuState(display);
+		StateManager.setState(menuState);
 	}
 
 	// TICK
@@ -119,5 +120,14 @@ public class Game implements Runnable {
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	// CLASS
+	public int getWidth() {
+		return width;
+	}
+
+	public int getHeight() {
+		return height;
 	}
 }

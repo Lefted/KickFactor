@@ -4,6 +4,7 @@ import java.awt.Canvas;
 import java.awt.Dimension;
 
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 
 import dev.lefted.graphics.ImageLoader;
 
@@ -11,6 +12,7 @@ public class Display {
 
 	// VARIABLES
 	private JFrame frame;
+	private JPanel panel;
 	private Canvas canvas;
 
 	private String title;
@@ -38,9 +40,16 @@ public class Display {
 		canvas.setPreferredSize(new Dimension(width, height));
 		canvas.setMinimumSize(new Dimension(width, height));
 		canvas.setMaximumSize(new Dimension(width, height));
+		canvas.setFocusable(false);
 
+		// panel to store components like jbuttons, labels, etc
+		panel = new JPanel();
+		panel.setLayout(null);
+		panel.setPreferredSize(new Dimension(width, height));
+		
 		// add things to the frame
 		frame.add(canvas);
+		frame.add(panel);
 		frame.pack();
 		// show frame at last to reduce graphic bugs at program start
 		frame.setVisible(true);
@@ -51,4 +60,10 @@ public class Display {
 		return canvas;
 	}
 
+	public JFrame getFrame() {
+		return frame;
+	}
+	public JPanel getPanel() {
+		return panel;
+	}
 }
