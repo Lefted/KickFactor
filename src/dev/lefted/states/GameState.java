@@ -4,6 +4,7 @@ import java.awt.Graphics;
 
 import dev.lefted.graphics.Assets;
 
+// PARENT CLASS
 public class GameState extends State {
 
 	public GameState() {

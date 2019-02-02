@@ -2,9 +2,9 @@ package dev.lefted.states;
 
 import java.awt.Graphics;
 
+// PARENT CLASS
 public abstract class State {
 
-	// PARENT CLASS
 	public abstract void tick();
 
 	public abstract void render(Graphics gfx);

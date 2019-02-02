@@ -1,5 +1,6 @@
 package dev.lefted.states;
 
+// class to manage the active state
 public class StateManager {
 
 	private static State currentState = null;

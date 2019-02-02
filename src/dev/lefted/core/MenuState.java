@@ -10,6 +10,7 @@ import dev.lefted.states.State;
 
 public class MenuState extends State {
 
+	// VARIABLES
 	private JButton start;
 	@SuppressWarnings("unused")
 	private JButton option;
@@ -26,16 +27,16 @@ public class MenuState extends State {
 		init();
 	}
 
+	// PARENT method not used
 	@Override
 	public void tick() {
 		// TODO Auto-generated method stub
 
 	}
-
-	@Override
 	public void render(Graphics gfx) {
 	}
 
+	// adding components to the panel of the frame
 	private void init() {
 		start = new JButton("Start game");
 		start.setBounds(Launcher.game.getWidth() / 2 - 200, 100, 400, 80);
